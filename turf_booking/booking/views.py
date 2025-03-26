@@ -1,9 +1,7 @@
-
-
-
 from django.shortcuts import render, redirect
-from .forms import BookingForm, CancelBookingForm
+from .forms import BookingForm
 from .models import Booking
+from django.contrib import messages
 
 def book_turf(request):
     if request.method == "POST":
@@ -20,15 +18,15 @@ def book_turf(request):
 
 def cancel_booking(request):
     if request.method == "POST":
-        form = CancelBookingForm(request.POST)
-        if form.is_valid():
-            phone = form.cleaned_data['phone']
-            booking = Booking.objects.filter(phone=phone).first()
-            if booking:
-                booking.delete()
-                return render(request, 'booking/cancel_success.html', {'phone': phone})
-            else:
-                return render(request, 'booking/cancel_fail.html', {'phone': phone})
-    else:
-        form = CancelBookingForm()
-    return render(request, 'booking/cancel_form.html', {'form': form})
+        phone = request.POST.get('phone')
+        booking = Booking.objects.filter(phone=phone).first()
+
+        if booking:
+            booking.delete()
+            messages.success(request, "✅ Booking canceled successfully.")
+        else:
+            messages.error(request, "❌ No booking found with this phone number.")
+
+        return redirect('cancel_booking')
+
+    return render(request, 'booking/cancel_booking.html')

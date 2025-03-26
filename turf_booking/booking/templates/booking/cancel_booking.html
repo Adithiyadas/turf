@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cancel Booking</title>
+</head>
+<body>
+    <h1>Cancel Booking</h1>
+    
+    <!-- Display Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %};">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="phone">Enter Your Phone Number:</label>
+        <input type="text" name="phone" required>
+        <input type="submit" value="Cancel Booking">
+    </form>
+
+    <a href="{% url 'book_turf' %}">Back to Booking</a>
+</body>
+</html>

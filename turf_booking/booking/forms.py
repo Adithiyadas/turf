@@ -13,7 +13,3 @@ class BookingForm(forms.ModelForm):
                 ('8am-9am', '8:00 AM - 9:00 AM (1000/-)'),
             ])
         }
-from django import forms
-
-class CancelBookingForm(forms.Form):
-    phone = forms.CharField(max_length=10, label="Enter your phone number")

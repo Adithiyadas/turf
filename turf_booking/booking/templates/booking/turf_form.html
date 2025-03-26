@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Turf Booking</title>
 </head>
@@ -10,5 +10,6 @@
         {{ form.as_p }}
         <input type="submit" value="Book">
     </form>
+    <a href="{% url 'cancel_booking' %}">Cancel Booking</a>
 </body>
 </html>
